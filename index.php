@@ -33,25 +33,47 @@
 						</div>
 						<div class="panel-body">
 							<form action="index.php" role="form" method="POST" enctype="multipart/form-data">
-								<?
-									if (isset($_FILES['file']['name'])) {
-										$file = $_FILES['file']['name'];
-										$tmp_name = $_FILES['file']['tmp_name'];
+								<div class="message" id="message">
+									<?
+										$success = false;
+										$failed = false;
 
-										$location = '../../../../home/arjay/Desktop/Received/' . $file;
+										if (isset($_FILES['file']['name'])) {
+											if (is_array($_FILES)) {
+												foreach ($_FILES['file']['name'] as $file => $value) {
+													//$file = explode(".", $_FILES['file']['name'][$file]);
+													$tmp_name = $_FILES['file']['tmp_name'][$file];
+													$location = '../../../../home/arjay/Desktop/Received/' . $value;
 
-										if (move_uploaded_file($tmp_name, $location)) {
+													if (move_uploaded_file($tmp_name, $location)) {
+														$success = true;
+													} else {
+														$failed = true;
+													}
+												}
+											}
+										}
+
+										if ($success == true) {
 											echo "<div class=\"success-message\">File successfully transfered.</div>";
-										} else {
+										} elseif ($failed == true) {
 											echo "<div class=\"error-message\">Failed to transfer file.</div>";
 										}
-									}
-								?>
-								<div class="form-group">
-									<input type="file" name="file" required>
+									?>
 								</div>
+								<div class="form-group">
+									<button class="btn btn-info" id="select">Select Files</button>
+									<input type="file" name="file[]" id="myFile" multiple required>
+								</div>
+								<div class="count">
+									<label id="count"></label>
+								</div>
+								<!--<div>
+									<progress id="progressBar" value="0" max="100" style="width: 300px;"></progress>
+									<h3 id="status"></h3>
+								</div>-->
 								<div class="form-group button">
-									<button class="btn btn-success" type="submit"><i class="fa fa-send"></i><i class="line"></i> Send</button>
+									<button class="btn btn-success" id="send" class="submit"><i class="fa fa-send"></i><i class="line"></i> Send</button>
 								</div>
 							</form>
 						</div>
@@ -66,4 +88,65 @@
 
 	</body>
 
+	<script src="bootstrap/jquery.min.js"></script>
+
 </html>
+
+<script type="text/javascript">
+
+	$("#select").click(function() {
+		$("#myFile").val('');
+		$("#myFile").click();
+		$(this).prop("#myFile");
+		//autoSubmit(false);
+	});
+
+	$('input#myFile').change(function(){
+		var files = $(this)[0].files;
+		if (files.length == 1) {
+			$("#count").html(files.length + " file selected for sharing.");
+		} else if (files.length > 1) {
+			$("#count").html(files.length + " files selected for sharing.");
+		}
+		//alert(files.length);
+	});
+	
+</script>
+
+        <!--<script>
+        	function _(el) {
+        		return document.getElementById('el');
+        	}
+
+        	function uploadFile() {
+        		var file = _("file").files[0];
+        		var formdata = new FormData();
+        		formdata.append("file", file);
+        		var ajax = new XMLHttpRequest();
+        		ajax.upload.addEventListener("progress", progressHandler, false);
+        		ajax.upload.addEventListener("load", completeHandler, false);
+        		ajax.upload.addEventListener("error", errorHandler, false);
+        		ajax.upload.addEventListener("abort", abortHandler, false);
+        		ajax.open("POST", "fileParser.php");
+        		ajax.send(formdata);
+        	}
+
+        	function progressHandler(event) {
+        		var percent = (event.loaded / event.total) * 100;
+        		_("progressBar").value = Math.round(percent);
+        		_("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+        	}
+
+        	function completeHandler(event) {
+        		_("status").innerHTML = event.target.responseText;
+        		_("progressBar").value = 0;
+        	}
+
+        	function errorHandler(event) {
+        		_("status").innerHTML = "Upload failed.";
+        	}
+
+        	function abortHandler(event) {
+        		_("status").innerHTML = "Upload aborted.";
+        	}
+        </script>-->
