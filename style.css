@@ -186,7 +186,7 @@ button .fa-send {
 
 @media (max-width: 1024px){
 
-	.panel {
+	.panell {
 		width: 32%;
 	}
 
@@ -194,7 +194,7 @@ button .fa-send {
 
 @media (max-width: 414px){
 
-	.panel {
+	.panell {
 		width: 80%;
 	}
 
@@ -206,7 +206,7 @@ button .fa-send {
 
 @media (max-width: 375px){
 
-	.panel {
+	.panell {
 		margin: 20px auto 0;
 	}
 
@@ -214,7 +214,7 @@ button .fa-send {
 
 @media (max-width: 330px){
 
-	.panel {
+	.panell {
 		margin-left: -12px;
 	}
 

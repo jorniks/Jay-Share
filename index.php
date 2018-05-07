@@ -55,57 +55,59 @@
 												//If the file is not a folder and is not a system created file this will execute
 												if (!(glob($rootPath.$path."/$file",GLOB_ONLYDIR)) && $file != '.' && $file != '..') {
 
-														$extension = strtolower(substr($file, strrpos($file, '.')+1));
+													$_file = str_replace(" ", "_", $file);
+													$extension = strtolower(substr($file, strrpos($file, '.')+1));
 
-														if (in_array($extension, $images)) {
-															$icon = '<i class="fa fa-photo"></i>';
-														} elseif (in_array($extension, $documents)) {
-															$icon = '<i class="fa fa-file-o"></i>';
-														} elseif (in_array($extension, $videos)) {
-															$icon = '<i class="fa fa-film"></i>';
-														} elseif (in_array($extension, $music)) {
-															$icon = '<i class="fa fa-music"></i>';
-														} elseif (in_array($extension, $code)) {
-															$icon = '<i class="fa fa-code"></i>';
-														} elseif (in_array($extension, $zip)) {
-															$icon = '<i class="fa fa-file-zip-o"></i>';
-														}
+													if (in_array($extension, $images)) {
+														$icon = '<i class="fa fa-photo"></i>';
+													} elseif (in_array($extension, $documents)) {
+														$icon = '<i class="fa fa-file-o"></i>';
+													} elseif (in_array($extension, $videos)) {
+														$icon = '<i class="fa fa-film"></i>';
+													} elseif (in_array($extension, $music)) {
+														$icon = '<i class="fa fa-music"></i>';
+													} elseif (in_array($extension, $code)) {
+														$icon = '<i class="fa fa-code"></i>';
+													} elseif (in_array($extension, $zip)) {
+														$icon = '<i class="fa fa-file-zip-o"></i>';
+													}
 
-														//Print out files that are in the root(user specified) directory
+													//Print out files that are in the root(user specified) directory
 
-														$item = $rootPath.$path.'/'.$file;
+													$item = $rootPath.$path.'/'.$file;
 
-														echo "<tr>
-															<td>
-																<label>$icon</label> $file
-															</td>
-															<td>
-																<a href=\"download.php?file=$item&name=$file\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
-															</td>
-															</tr>";
+													echo "<tr>
+														<td>
+															<label>$icon</label> $file
+														</td>
+														<td>
+															<a href=\"download.php?file=$item&name=$_file\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
+														</td>
+														</tr>";
 												}
 											}
 										}
 									?>
 								</tbody>
 							</table>
-							<div class="alert alert-danger">
+							<!--<div class="alert alert-danger">
                                 <article>Folders with space(s) in their name will not expand when clicked; use a hyphen(-) or an underscore( _ ) to eliminate all space(s) then refresh this page to make them expand when clicked.</article>
-                            </div>
+                            </div>-->
 								<?
 									foreach ($root as $file) {
-										if ($folders = glob($rootPath.$path."/$file",GLOB_ONLYDIR)) {
-											foreach ($folders as $rootSubFolder) {
+										if ($folderScan = glob($rootPath.$path."/$file",GLOB_ONLYDIR)) {
+											foreach ($folderScan as $rootSubFolder) {
 												if ($file != '.' && $file != '..') {
+													$_file = str_replace(" ", "_", $file);
 								?>
-								<div class="panel panel-info pull-right" style="width: 100%;">
+								<div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#<?=$file?>" class="collapsed"><?echo "<i class=\"fa fa-folder\"></i> <label>$file</label><br>";?></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#<?=$_file?>" class="collapsed"><?echo "<i class=\"fa fa-folder\"></i> <label>$file</label><br>";?></a>
                                         </h4>
                                     </div>
 
-                                    <div id="<?=$file?>" class="panel-collapse collapse" style="height: 0px;">
+                                    <div id="<?=$_file?>" class="panel-collapse collapse" style="height: 0px;">
                                         <div class="panel-body" style="font-size: 0.9em;">
                                         	<div class="table-responsive">
                                         	<table class="table table-striped table-bordered table-hover">
@@ -115,6 +117,7 @@
                                         					foreach ($subFolder as $subFile) {
                                         						if (!(glob($rootPath.$path."/$file/".$subFile,GLOB_ONLYDIR)) && $subFile != '.' && $subFile != '..') {
 
+                                        							$_subFile = str_replace(" ", "_", $subFile);
                                         							//This will execute for all the subfiles inside the subfolder in the user specified directory
 																	$extension = strtolower(substr($subFile, strrpos($subFile, '.')+1));
 
@@ -141,7 +144,7 @@
 																			<label>$icon</label> $subFile
 																		</td>
 																		<td>
-																			<a href=\"download.php?file=$item&name=$subFile\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
+																			<a href=\"download.php?file=$item&name=$_subFile\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
 																		</td>
 																		</tr>";
                                         						}
@@ -155,21 +158,22 @@
 									foreach ($subFolder as $subFile) {
 
 										//Check if there is a folder inside the subfolder
-										if ($subSubFolder = glob($rootPath.$path."/$file/".$subFile,GLOB_ONLYDIR)) {
+										if ($subFolderScan = glob($rootPath.$path."/$file/".$subFile,GLOB_ONLYDIR)) {
 
 											//If there is a folder inside the subfolder this will execute for all the subfolders inside the subfolder
-											foreach ($subSubFolder as $subSubFile) {
+											foreach ($subFolderScan as $subSubFile) {
 												if ($subFile != '.' && $subFile != '..') {
+													$_subFile = str_replace(" ", "_", $subFile);
 								?>
 								
-								<div class="panel panel-success pull-right" style="width: 100%;">
+								<div class="panel panel-success">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#<?=$subFile?>" class="collapsed"><?echo "<i class=\"fa fa-folder\"></i> <label>$subFile</label><br>";?></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#<?=$_subFile?>" class="collapsed"><?echo "<i class=\"fa fa-folder\"></i> <label>$subFile</label><br>";?></a>
                                         </h4>
                                     </div>
 
-                                    <div id="<?=$subFile?>" class="panel-collapse collapse" style="height: 0px;">
+                                    <div id="<?=$_subFile?>" class="panel-collapse collapse" style="height: 0px;">
                                         <div class="panel-body" style="font-size: 0.9em;">
                                         	<div class="table-responsive">
                                         	<table class="table table-striped table-bordered table-hover">
@@ -179,6 +183,7 @@
                                         					foreach ($innerSubFolder as $innerSubFile) {
                                         						if (!(glob($rootPath.$path."/$file/$subFile/".$innerSubFile,GLOB_ONLYDIR)) && $innerSubFile != '.' && $innerSubFile != '..') {
 
+                                        							$_innerSubFile = str_replace(" ", "_", $innerSubFile);
                                         							//This will execute for all the subfiles inside the subfolder in the user specified directory
 																	$extension = strtolower(substr($innerSubFile, strrpos($innerSubFile, '.')+1));
 
@@ -205,7 +210,7 @@
 																			<label>$icon</label> $innerSubFile
 																		</td>
 																		<td>
-																			<a href=\"download.php?file=$item&name=$innerSubFile\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
+																			<a href=\"download.php?file=$item&name=$_innerSubFile\" class=\"btn btn-inverse\"><i class=\"fa fa-download\"></i></a>
 																		</td>
 																		</tr>";
                                         						}
@@ -247,7 +252,7 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="col-md-12 col-sm-12">
-					<div class="panell panel-success wow fadeInUp">
+					<div class="panell panel-success">
 						<div class="panell-heading">
 							<strong>Jay Share</strong>
 						</div>
