@@ -1,16 +1,11 @@
 
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     height: 100%;
     width: 100%;
     background-color: #fff;
     background: url('img/4.jpg');
     background-repeat: no-repeat;
+    overflow-x: hidden;
 }
 
 form .form-group input{
@@ -28,23 +23,63 @@ form .form-group input{
 	box-shadow: none;
 }
 
+.form-group button {
+	padding: 10px;
+	font-size: 1.2em;
+	margin-right: 10px;
+	width: 50%;
+}
+
+.form-group button:last-child {
+	margin-right: 0;
+}
+
+.form-group ul {
+	position: absolute;
+	top: -100%;
+	left: -1%;
+}
+
 form .button {
 	text-align: center;
-	padding-top: 20px;
 	width: 100%;
 	margin-top: 50px;
 }
 
-button {
+form .button button {
 	width: 130px;
-	font-size: 20px;
+	padding: 10px;
+}
+
+.btn-group button {
+	width: 100%;
+}
+
+form button {
+	width: 100px;
 	overflow: hidden;
 }
 
-button:hover {
-	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+form button:hover {
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
 
+.fa:not(.fa-send):not(.fa-download) {
+	font-size: 1.5em;
+	margin-right: 10px;
+}
+
+table tr td {
+	font-size: 0.9em;
+}
+
+table tr td .fa{
+	margin-top: 50%;
+}
+
+hr:first-child {
+	display: none;
+}
 
 button .fa-send {
     position: relative;
@@ -83,7 +118,7 @@ button .fa-send {
 	margin-top: 7rem;
 }
 
-.panel {
+.panell {
 	padding: 30px 20px 0 20px;
 	min-width: 290px;
 	width: 28%;
@@ -95,7 +130,7 @@ button .fa-send {
     transition: 0.5s;
 }
 
-.panel-heading {
+.panell-heading {
 	font-size: 2em;
 	text-transform: capitalize;
 	text-align: center;
@@ -117,7 +152,7 @@ button .fa-send {
 }
 
 .count {
-	max-height: 20px;
+	max-height: 25px;
 	font-weight: 500;
 }
 
@@ -161,6 +196,10 @@ button .fa-send {
 
 	.panel {
 		width: 80%;
+	}
+
+	.form-group button {
+		width: auto;
 	}
 
 }
