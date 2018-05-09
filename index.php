@@ -42,6 +42,7 @@
 										$music = array("mp3","ogg","wma","m4a");
 										$code = array("html","css","js","php");
 										$zip = array("gzip","rar","7z","zip","tar","xz");
+										$app = array("exe");
 
 										//Declare system path as a variable for easier manipulation
 										$rootPath = '../../../../../home/arjay/';
@@ -70,6 +71,8 @@
 														$icon = '<i class="fa fa-code"></i>';
 													} elseif (in_array($extension, $zip)) {
 														$icon = '<i class="fa fa-file-zip-o"></i>';
+													} elseif (in_array($extension, $app)) {
+														$icon = '<i class="fa fa-desktop"></i>';
 													}
 
 													//Print out files that are in the root(user specified) directory
@@ -133,6 +136,8 @@
 																		$icon = '<i class="fa fa-code"></i>';
 																	} elseif (in_array($extension, $zip)) {
 																		$icon = '<i class="fa fa-file-zip-o"></i>';
+																	} elseif (in_array($extension, $app)) {
+																		$icon = '<i class="fa fa-desktop"></i>';
 																	}
 
 																	//Print out files that are in the subfolder of the user specified directory
@@ -199,6 +204,8 @@
 																		$icon = '<i class="fa fa-code"></i>';
 																	} elseif (in_array($extension, $zip)) {
 																		$icon = '<i class="fa fa-file-zip-o"></i>';
+																	} elseif (in_array($extension, $app)) {
+																		$icon = '<i class="fa fa-desktop"></i>';
 																	}
 
 																	//Print out files that are in the subfolder of the user specified directory
