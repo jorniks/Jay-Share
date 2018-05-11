@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-        <title>Jay Share | Home</title>
+        <title>T-Share | Home</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="filewords">
         <meta content="" name="description">
@@ -261,7 +261,7 @@
 				<div class="col-md-12 col-sm-12">
 					<div class="panell panel-success">
 						<div class="panell-heading">
-							<strong>Jay Share</strong>
+							<strong>T-Share</strong>
 						</div>
 						<div class="panel-body">
 							<form action="index.php" role="form" method="POST" enctype="multipart/form-data">
